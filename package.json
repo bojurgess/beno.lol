@@ -1,0 +1,18 @@
+{
+	"name": "beno.lol",
+	"version": "1.0.0",
+	"scripts": {
+		"build": "turbo run build",
+		"dev": "turbo run dev",
+		"lint": "turbo run lint",
+		"format": "prettier --write ."
+	},
+	"license": "ISC",
+	"packageManager": "pnpm@8.15.3+sha256.fc4a49bd609550a41e14d20efbce802a4b892aa4cac877322de2f0924f122991",
+	"devDependencies": {
+		"eslint": "^8.56.0",
+		"prettier": "^3.2.5",
+		"prettier-plugin-svelte": "^3.2.1",
+		"turbo": "^1.12.4"
+	}
+}
