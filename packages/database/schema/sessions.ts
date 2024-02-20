@@ -7,6 +7,6 @@ export const sessions = mysqlTable("sessions", {
 		length: 255,
 	})
 		.notNull()
-		.references(() => users.id),
+		.references(() => users.id, { onDelete: "cascade", onUpdate: "cascade" }),
 	expiresAt: datetime("expires_at").notNull(),
 });

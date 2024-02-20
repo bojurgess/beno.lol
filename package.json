@@ -5,6 +5,8 @@
 		"build": "turbo run build",
 		"dev": "turbo run dev",
 		"lint": "turbo run lint",
+		"generate": "turbo run generate",
+		"migrate": "turbo run migrate",
 		"format": "prettier --write ."
 	},
 	"license": "ISC",

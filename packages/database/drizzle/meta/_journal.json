@@ -8,6 +8,27 @@
       "when": 1708126268147,
       "tag": "0000_strong_zzzax",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1708451128304,
+      "tag": "0001_mixed_dragon_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1708451482727,
+      "tag": "0002_aberrant_retro_girl",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1708451996896,
+      "tag": "0003_volatile_smasher",
+      "breakpoints": true
     }
   ]
 }

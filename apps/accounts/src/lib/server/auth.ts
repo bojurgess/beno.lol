@@ -1,7 +1,8 @@
 import { Lucia } from "lucia";
 import { dev } from "$app/environment";
 import { DrizzleMySQLAdapter } from "@lucia-auth/adapter-drizzle";
-import { db, users, sessions } from "@repo/database";
+import { db } from "@repo/database";
+import { users, sessions } from "@repo/database/schema";
 
 const adapter = new DrizzleMySQLAdapter(db, sessions, users);
 
@@ -10,6 +11,11 @@ export const lucia = new Lucia(adapter, {
 		attributes: {
 			secure: !dev,
 		},
+	},
+	getUserAttributes: (attributes) => {
+		return {
+			username: attributes.username,
+		};
 	},
 });
 
