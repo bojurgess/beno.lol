@@ -5,6 +5,17 @@
 			"dependsOn": ["^build"],
 			"outputs": [".svelte-kit/**"]
 		},
+		"migrate": {
+			"dependsOn": ["^migrate"],
+			"cache": false
+		},
+		"generate": {
+			"dependsOn": ["^generate"],
+			"cache": false
+		},
+		"check": {
+			"dependsOn": ["^check"]
+		},
 		"lint": {},
 		"dev": {
 			"cache": false,

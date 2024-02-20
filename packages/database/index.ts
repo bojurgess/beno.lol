@@ -8,3 +8,5 @@ const connection = connect({
 });
 
 export const db = drizzle(connection);
+export { users } from "./schema/users";
+export { sessions } from "./schema/sessions";
