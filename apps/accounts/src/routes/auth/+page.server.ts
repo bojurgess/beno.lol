@@ -9,7 +9,7 @@ import { DatabaseError } from "@repo/database";
 import { eq } from "drizzle-orm";
 import { dev } from "$app/environment";
 
-const defaultRedirect = dev ? "http://localhost:3000" : "https://beno.lol";
+const defaultRedirect = dev ? "http://localhost:5173" : "https://beno.lol";
 
 export const load: PageServerLoad = async ({ url, locals, cookies }) => {
 	const flow = url.searchParams.get("flow") || "login";
@@ -24,13 +24,12 @@ export const load: PageServerLoad = async ({ url, locals, cookies }) => {
 		const sessionCookie = lucia.createBlankSessionCookie();
 		cookies.set(sessionCookie.name, sessionCookie.value, {
 			path: ".",
+			domain: ".localhost",
 			...sessionCookie.attributes,
 		});
 
 		throw redirect(302, goto);
-	}
-
-	if (locals.user) throw redirect(302, goto);
+	} else if (locals.user) throw redirect(302, goto);
 
 	return {
 		flow,

@@ -1,5 +1,5 @@
 {
-	"name": "@repo/accounts",
+	"name": "@repo/app",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
@@ -16,7 +16,6 @@
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
-		"@repo/config-eslint": "workspace:^",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
@@ -26,7 +25,6 @@
 		"eslint": "^8.56.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.35.1",
-		"lucia": "^3.0.1",
 		"prettier": "^3.1.1",
 		"prettier-plugin-svelte": "^3.1.2",
 		"svelte": "^4.2.7",
@@ -39,8 +37,9 @@
 	"type": "module",
 	"dependencies": {
 		"@lucia-auth/adapter-drizzle": "^1.0.2",
+		"@repo/config-eslint": "workspace:^",
 		"@repo/database": "workspace:^",
-		"drizzle-orm": "^0.29.3",
-		"oslo": "^1.1.1"
+		"bits-ui": "^0.18.1",
+		"lucia": "^3.0.1"
 	}
 }
