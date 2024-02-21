@@ -3,6 +3,7 @@ import { users } from "./users";
 import { relations } from "drizzle-orm";
 import { themes } from "./themes";
 import { userFlags } from "./userFlags";
+import { links } from "./links";
 
 export const profiles = mysqlTable("profiles", {
 	id: varchar("id", { length: 15 })
@@ -23,6 +24,7 @@ export const profilesRelations = relations(profiles, ({ one, many }) => ({
 		fields: [profiles.id],
 		references: [users.id],
 	}),
+	links: many(links),
 	themes: many(themes),
 	flags: many(userFlags),
 }));
