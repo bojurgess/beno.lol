@@ -14,7 +14,7 @@ export const load: PageLoad = async ({ fetch }) => {
         getIcon('github'),
         getIcon('osu'),
         getIcon('spotify'),
-        getIcon('lastdotfm')
+        getIcon('lastdotfm'),
     ]);
 
     return {

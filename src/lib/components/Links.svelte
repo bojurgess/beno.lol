@@ -18,6 +18,7 @@
 			current = document.querySelector('#link-1') as HTMLAnchorElement;
 
 			chip.style.opacity = '0';
+			chip.style.width = `${4}rem`;
 			chip.style.transform = `translateX(${current.offsetLeft - current.offsetWidth / 16}px)`;
 
 			first = false;
@@ -68,7 +69,7 @@
 	<div
 		id="link-chip"
 		bind:this={chip}
-		class="absolute bg-transparent w-16 h-12 grow rounded-full pointer-events-none z-0 left-1"
+		class="absolute bg-transparent h-12 grow rounded-full pointer-events-none z-0 left-1"
 	></div>
 
 	{#each links as l, i (l.id)}
