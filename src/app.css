@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+	font-family: 'Mona Sans';
+	src:
+		url('/assets/fonts/Mona-Sans.woff2') format('woff2 supports variations'),
+		url('/assets/fonts/Mona-Sans.woff2') format('woff2-variations');
+	font-weight: 200 900;
+	font-stretch: 75% 125%;
+}
+
+@layer utilities {
+	.floating {
+		width: max-content;
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+}
+
+html,
+body {
+	@apply h-full overflow-hidden font-body;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	@apply font-display font-bold;
+	font-stretch: 125%;
+}
