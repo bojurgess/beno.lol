@@ -1,12 +1,14 @@
+import { dev } from "$app/environment";
 import type { Link } from "$lib/types";
 import type { PageLoad } from "./$types";
 
 export const load: PageLoad = async ({ fetch }) => {
+    const url = dev ? "http://localhost:3000" : "https://backend.beno.lol";
+
     const getIcon = async (name: string): Promise<string> => {
         const icon = (await fetch(`/assets/icons/svg/${name}.svg`)).text();
         return icon;
     }
-
     
     const icons = await Promise.all([
         getIcon('github'),

@@ -1,5 +1,27 @@
 <script lang="ts">
-	import { Links } from '$components';
+	import { dev } from '$app/environment';
+	import { Links, Spotify } from '$components';
+	import type { NowPlaying } from '$lib/types.js';
+	import { onDestroy, onMount } from 'svelte';
+
+	let eventSource: EventSource;
+	let nowPlaying: NowPlaying | null = $state(null);
+
+	let url = dev
+		? 'http://localhost:3000/user/8fzywdklm84r9hupsurfxdoj2'
+		: 'https://backend.beno.lol/user/8fzywdklm84r9hupsurfxdoj2';
+
+	onMount(() => {
+		eventSource = new EventSource(url);
+		eventSource.onmessage = (event) => {
+			nowPlaying = JSON.parse(event.data);
+		};
+	});
+
+	onDestroy(() => {
+		// Clean up the EventSource
+		eventSource?.close();
+	});
 
 	const { data, form } = $props();
 </script>
@@ -24,3 +46,6 @@
 		<Links links={data.links} />
 	</section>
 </div>
+{#if nowPlaying}
+	<Spotify {nowPlaying} />
+{/if}
