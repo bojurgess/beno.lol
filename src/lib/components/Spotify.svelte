@@ -22,7 +22,6 @@
 		Vibrant.from(album.images[0].url)
 			.getPalette()
 			.then((palette) => {
-				console.log(palette);
 				const c = palette.Vibrant!.rgb;
 
 				const contrast = c.reduce((a, b) => a + b) / 3 > 127 ? 'black' : 'white';
@@ -69,15 +68,23 @@
 {/snippet}
 
 {#snippet verticalWidget()}
-	<div bind:this={container} class="flex flex-col rounded-2xl p-4 space-y-2 w-72">
-		<a href={item.external_urls.spotify} target="_blank" rel="noopener noreferrer">
+	<div
+		bind:this={container}
+		class="flex flex-col rounded-2xl p-2 items-center justify-center space-y-2"
+	>
+		<a
+			href={item.external_urls.spotify}
+			target="_blank"
+			class="overflow-hidden rounded-lg w-64 shadow-xl"
+			rel="noopener noreferrer"
+		>
 			<img
-				class="w-64 rounded-lg border border-transparent"
+				class="hover:scale-105 ease-in-out object-cover transition-all"
 				src={album.images[0].url}
 				alt={item.name}
 			/>
 		</a>
-		<div class="flex flex-col space-y-4 rounded-lg">
+		<div class="flex flex-col space-y-4 rounded-lg w-64">
 			<div class="text-center">
 				<a
 					id="title"

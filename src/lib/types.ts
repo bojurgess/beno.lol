@@ -1,9 +1,20 @@
-export interface Link {
+interface LinkHref {
     id: number;
     icon: string;
     href: string;
     color: HexColor;
+    tooltip: string;
 }
+
+interface LinkClipboard {
+  id: number;
+  icon: string;
+  clipboard: string;
+  color: HexColor;
+  tooltip: string;
+}
+
+export type Link = LinkHref | LinkClipboard;
 
 type HexColor = `#${string}`;
 

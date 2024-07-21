@@ -13,8 +13,9 @@ export const load: PageLoad = async ({ fetch }) => {
     const icons = await Promise.all([
         getIcon('github'),
         getIcon('osu'),
-        getIcon('spotify'),
+        getIcon('discord'),
         getIcon('lastdotfm'),
+        getIcon('spotify')
     ]);
 
     return {
@@ -23,26 +24,38 @@ export const load: PageLoad = async ({ fetch }) => {
                 id: 1,
                 icon: icons[0],
                 href: "https://github.com/bojurgess",
-                color: "#171a21"
+                color: "#171a21",
+                tooltip: "bojurgess"
             },
             {
                 id: 2,
                 icon: icons[1],
                 href: "https://osu.ppy.sh/users/10192264",
-                color: "#ff66aa"
+                color: "#ff66aa",
+                tooltip: "beno"
             },
             {
                 id: 3,
                 icon: icons[2],
-                href: "https://open.spotify.com/user/8fzywdklm84r9hupsurfxdoj2",
-                color: "#1db954"
+                clipboard: "beno___",
+                color: "#7289da",
+                tooltip: "beno___"
             },
             {
                 id: 4,
                 icon: icons[3],
                 href: "https://www.last.fm/user/beno__",
-                color: "#d51007"
+                color: "#d51007",
+                tooltip: "beno__"
+            },
+            {
+                id: 5,
+                icon: icons[4],
+                href: "https://open.spotify.com/user/8fzywdklm84r9hupsurfxdoj2",
+                color: "#1db954",
+                tooltip: "—beno"
             }
-        ] satisfies Link[]
+        ] satisfies Link[],
+        spotifyIcon: icons[4],
     }
 }

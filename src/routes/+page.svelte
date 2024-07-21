@@ -1,12 +1,17 @@
 <script lang="ts">
 	import { dev } from '$app/environment';
 	import { Links, Spotify } from '$components';
-	import type { Link, NowPlaying } from '$lib/types';
+	import type { NowPlaying } from '$lib/types';
 	import { onDestroy, onMount } from 'svelte';
 	import MediaQuery from 'svelte-media-queries';
 
 	let eventSource: EventSource;
 	let nowPlaying: NowPlaying | null = $state(null);
+
+	const getIcon = async (name: string): Promise<string> => {
+		const icon = (await fetch(`/assets/icons/svg/${name}.svg`)).text();
+		return icon;
+	};
 
 	let url = dev
 		? 'http://localhost:3000/user/8fzywdklm84r9hupsurfxdoj2'
@@ -25,8 +30,6 @@
 	});
 
 	const { data, form } = $props();
-
-	const spotifyLink = data.links.find((link) => link.color === '#1db954') as Link;
 </script>
 
 {#snippet profile()}
@@ -58,7 +61,7 @@
 			<div class="flex flex-col items-center justify-center w-full h-full space-y-1">
 				<p class="flex justify-between w-full text-xs">
 					<span>Listening on Spotify:</span>
-					<span class="w-4 flex items-center justify-center">{@html spotifyLink.icon}</span>
+					<span class="w-4 flex items-center justify-center">{@html data.spotifyIcon}</span>
 				</p>
 				{#if !matches}
 					<Spotify {nowPlaying} orientation={'horizontal'} />
@@ -71,6 +74,10 @@
 {/snippet}
 
 <div class="flex flex-col justify-center items-center space-y-8 overflow-scroll">
-	<div>{@render profile()}</div>
+	<div style="line-height: 0.5em;" class="text-center">
+		<h1 class="text-7xl">beno.</h1>
+		<p class="text-md">🚧 under construction 🚧</p>
+	</div>
+	<Links links={data.links} />
 	<div>{@render spotify()}</div>
 </div>

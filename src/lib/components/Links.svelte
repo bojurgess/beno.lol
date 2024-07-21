@@ -1,6 +1,20 @@
 <script lang="ts">
 	import type { Link } from '$lib/types';
+	import {
+		autoUpdate,
+		offset,
+		flip,
+		arrow,
+		useFloating,
+		FloatingArrow,
+		useHover,
+		useInteractions,
+		useRole,
+		useDismiss
+	} from '@skeletonlabs/floating-ui-svelte';
 	import { animate, spring } from 'motion';
+	import { fade } from 'svelte/transition';
+	import LinkButton from './LinkButton.svelte';
 
 	interface Props {
 		links: Link[];
@@ -11,11 +25,11 @@
 	let first = $state(true);
 
 	let chip: HTMLDivElement;
-	let current: HTMLAnchorElement | null = $state(null);
+	let current: HTMLButtonElement | null = $state(null);
 
 	$effect(() => {
 		if (first) {
-			current = document.querySelector('#link-1') as HTMLAnchorElement;
+			current = document.querySelector('#link-1') as HTMLButtonElement;
 
 			chip.style.opacity = '0';
 			chip.style.width = `${4}rem`;
@@ -26,6 +40,14 @@
 		}
 
 		if (!current) {
+			animate(
+				chip,
+				{
+					opacity: 0
+				},
+				{ easing: spring(), duration: 0.2 }
+			);
+
 			return;
 		}
 
@@ -51,21 +73,7 @@
 	});
 </script>
 
-{#snippet link(l, i)}
-	<a
-		id={`link-${l.id}`}
-		class="rounded-full fill-white cursor-pointer grow p-2 px-4 z-10"
-		href={l.href}
-		target="_blank"
-		rel="noopener noreferrer"
-		onmouseenter={(e) => (current = e.currentTarget)}
-		onmouseleave={() => (current = null)}
-	>
-		<span class="w-8 block">{@html l.icon}</span>
-	</a>
-{/snippet}
-
-<div id="links" class="flex relative rounded-full space-x-1 p-1 bg-black shadow-xl">
+<div id="links" class="flex relative rounded-full p-1 bg-black shadow-xl">
 	<div
 		id="link-chip"
 		bind:this={chip}
@@ -73,6 +81,6 @@
 	></div>
 
 	{#each links as l, i (l.id)}
-		{@render link(l, i)}
+		<LinkButton link={l} bind:current />
 	{/each}
 </div>

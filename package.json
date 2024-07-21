@@ -40,6 +40,7 @@
     "@sveltejs/adapter-node": "^5.2.0",
     "motion": "^10.18.0",
     "node-vibrant": "3.1.6",
+    "svelte-french-toast": "^1.2.0",
     "svelte-media-queries": "^1.6.2"
   }
 }
