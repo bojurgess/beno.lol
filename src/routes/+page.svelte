@@ -3,6 +3,7 @@
 	import { Links, Spotify } from '$components';
 	import type { Link, NowPlaying } from '$lib/types';
 	import { onDestroy, onMount } from 'svelte';
+	import MediaQuery from 'svelte-media-queries';
 
 	let eventSource: EventSource;
 	let nowPlaying: NowPlaying | null = $state(null);
@@ -52,18 +53,24 @@
 {/snippet}
 
 {#snippet spotify()}
-	{#if nowPlaying}
-		<div class="flex flex-col items-center justify-center w-full h-full space-y-1">
-			<p class="flex justify-between w-full text-xs">
-				<span>Listening on Spotify:</span>
-				<span class="w-4 flex items-center justify-center">{@html spotifyLink.icon}</span>
-			</p>
-			<Spotify {nowPlaying} orientation={'horizontal'} />
-		</div>
-	{/if}
+	<MediaQuery query="(max-width: 768px)" let:matches>
+		{#if nowPlaying}
+			<div class="flex flex-col items-center justify-center w-full h-full space-y-1">
+				<p class="flex justify-between w-full text-xs">
+					<span>Listening on Spotify:</span>
+					<span class="w-4 flex items-center justify-center">{@html spotifyLink.icon}</span>
+				</p>
+				{#if !matches}
+					<Spotify {nowPlaying} orientation={'horizontal'} />
+				{:else}
+					<Spotify {nowPlaying} orientation={'vertical'} />
+				{/if}
+			</div>
+		{/if}
+	</MediaQuery>
 {/snippet}
 
-<div class="flex flex-col justify-center items-center space-y-8">
+<div class="flex flex-col justify-center items-center space-y-8 overflow-scroll">
 	<div>{@render profile()}</div>
 	<div>{@render spotify()}</div>
 </div>

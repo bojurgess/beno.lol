@@ -1,5 +1,7 @@
 <script lang="ts">
 	import type { NowPlaying } from '$lib/types';
+	import Vibrant from 'node-vibrant';
+	import { animate } from 'motion';
 
 	interface Props {
 		nowPlaying: NowPlaying;
@@ -11,6 +13,39 @@
 	const item = $derived(nowPlaying.item);
 	const artists = $derived(item.artists);
 	const album = $derived(item.album);
+
+	let first = $state(true);
+
+	let container: HTMLDivElement;
+
+	$effect(() => {
+		Vibrant.from(album.images[0].url)
+			.getPalette()
+			.then((palette) => {
+				console.log(palette);
+				const c = palette.Vibrant!.rgb;
+
+				const contrast = c.reduce((a, b) => a + b) / 3 > 127 ? 'black' : 'white';
+
+				animate(
+					container,
+					{
+						backgroundColor: `rgba(${c.join(', ')}, 1)`
+					},
+					{ duration: first ? 0 : 0.2 }
+				);
+
+				animate(
+					container.querySelectorAll('*'),
+					{
+						color: contrast
+					},
+					{ duration: 0.2 }
+				);
+
+				first = false;
+			});
+	});
 
 	const progress = $derived.by(() => formatTime(nowPlaying.progress_ms));
 	const duration = $derived.by(() => formatTime(nowPlaying.item.duration_ms));
@@ -24,12 +59,7 @@
 </script>
 
 {#snippet artist(a, i)}
-	<a
-		href={a.external_urls.spotify}
-		target="_blank"
-		rel="noreferrer noopener"
-		class="hover:text-white transition-all"
-	>
+	<a href={a.external_urls.spotify} target="_blank" rel="noreferrer noopener">
 		{#if i !== artists.length - 1}
 			{a.name + ', '}
 		{:else}
@@ -39,10 +69,10 @@
 {/snippet}
 
 {#snippet verticalWidget()}
-	<div class="flex flex-col bg-red-600 rounded-2xl p-4 space-y-2 w-72">
+	<div bind:this={container} class="flex flex-col rounded-2xl p-4 space-y-2 w-72">
 		<a href={item.external_urls.spotify} target="_blank" rel="noopener noreferrer">
 			<img
-				class="w-64 rounded-lg border border-transparent hover:border-white transition-all"
+				class="w-64 rounded-lg border border-transparent"
 				src={album.images[0].url}
 				alt={item.name}
 			/>
@@ -76,15 +106,20 @@
 {/snippet}
 
 {#snippet horizontalWidget()}
-	<div class="flex bg-red-600 rounded-2xl p-2 space-x-4 w-fit">
-		<a href={item.external_urls.spotify} target="_blank" rel="noopener noreferrer">
+	<div bind:this={container} class="flex rounded-2xl p-2 space-x-4 w-fit">
+		<a
+			href={item.external_urls.spotify}
+			class="overflow-hidden rounded-lg w-40 shadow-xl"
+			target="_blank"
+			rel="noopener noreferrer"
+		>
 			<img
-				class="rounded-lg w-40 border border-transparent hover:border-white transition-all"
+				class="w-40 hover:scale-105 ease-in-out object-cover transition-all"
 				src={album.images[0].url}
 				alt={item.name}
 			/>
 		</a>
-		<div class="flex flex-col space-y-4 justify-center rounded-lg max-w-72">
+		<div class="flex flex-col space-y-4 pr-2 justify-center rounded-lg max-w-72">
 			<div>
 				<a
 					id="title"
@@ -138,7 +173,7 @@
 	}
 
 	a {
-		@apply hover:text-white transition-all;
+		@apply hover:underline;
 	}
 
 	#title {
