@@ -29,11 +29,11 @@
 
 	$effect(() => {
 		if (first) {
-			current = document.querySelector('#link-1') as HTMLButtonElement;
+			const el = document.getElementById('link-1') as HTMLDivElement;
 
 			chip.style.opacity = '0';
 			chip.style.width = `${4}rem`;
-			chip.style.transform = `translateX(${current.offsetLeft - current.offsetWidth / 16}px)`;
+			chip.style.transform = `translateX(${el.offsetLeft - el.offsetWidth / 16}px)`;
 
 			first = false;
 			return;
@@ -77,7 +77,8 @@
 	<div
 		id="link-chip"
 		bind:this={chip}
-		class="absolute bg-transparent h-12 grow rounded-full pointer-events-none z-0 left-1"
+		style="opacity: 0;"
+		class="absolute h-12 grow rounded-full pointer-events-none z-0 left-1"
 	></div>
 
 	{#each links as l, i (l.id)}
