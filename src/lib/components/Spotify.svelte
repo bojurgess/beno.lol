@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { NowPlaying } from '$lib/types';
+	import type { Artist, NowPlaying } from '$lib/types';
 	import Vibrant from 'node-vibrant';
 	import { animate } from 'motion';
 
@@ -57,7 +57,7 @@
 	};
 </script>
 
-{#snippet artist(a, i)}
+{#snippet artist(a: Artist, i: number)}
 	<a href={a.external_urls.spotify} target="_blank" rel="noreferrer noopener">
 		{#if i !== artists.length - 1}
 			{a.name + ', '}
@@ -93,7 +93,7 @@
 					rel="noopener noreferrer"
 					class="text-2xl font-display font-bold line-clamp-2">{item.name}</a
 				>
-				<span class="text-sm">
+				<span class="text-sm line-clamp-2">
 					{#each artists as a, i}
 						{@render artist(a, i)}
 					{/each}
@@ -137,7 +137,7 @@
 				>
 					{item.name}
 				</a>
-				<span class="text-sm">
+				<span class="text-sm line-clamp-2">
 					{#each artists as a, i}
 						{@render artist(a, i)}
 					{/each}
